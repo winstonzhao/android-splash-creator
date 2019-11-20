@@ -7,9 +7,9 @@ const takeScreenshot = require("./src/main");
 
 (async () => {
   program
-    .option("-p, --port <number>", "localhost port", parseInt)
+    .option("-p, --port <port> (defaults to 3333)", "localhost port", parseInt)
     .option(
-      "-u, --url <string>",
+      "-u, --url <url> (defaults to localhost)",
       "url of webpage, if url is passed, port is ignored"
     );
 
@@ -47,7 +47,7 @@ const takeScreenshot = require("./src/main");
   try {
     await tasks.run();
     console.log(chalk.green(boxen("  done  ", { padding: 1, margin: 2 })));
-  } catch {
+  } catch (_) {
     process.exit();
   }
 })();
