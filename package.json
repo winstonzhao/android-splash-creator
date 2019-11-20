@@ -1,0 +1,19 @@
+{
+  "name": "android-splash-creator",
+  "version": "1.0.0",
+  "description": "A Splash Image Creator for Android APKs, it takes screenshots of a web address at various dimensions and outputs the corresponding file directories and image files.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Winston Zhao",
+  "license": "MIT",
+  "dependencies": {
+    "boxen": "^4.1.0",
+    "chalk": "^3.0.0",
+    "commander": "^4.0.1",
+    "listr": "^0.14.3",
+    "puppeteer": "^2.0.0",
+    "rxjs": "^6.5.3"
+  }
+}
