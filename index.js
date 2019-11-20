@@ -3,11 +3,14 @@ const boxen = require("boxen");
 const { Observable } = require("rxjs");
 const Listr = require("listr");
 const program = require("commander");
-const takeScreenshot = require('./src/main');
+const takeScreenshot = require("./src/main");
 
 program
   .option("-p, --port <number>", "localhost port", parseInt)
-  .option("-u, --url <string>", "url of webpage, if url is passed, port is ignored");
+  .option(
+    "-u, --url <string>",
+    "url of webpage, if url is passed, port is ignored"
+  );
 
 program.parse(process.argv);
 
@@ -22,23 +25,27 @@ if (program.url) {
 }
 
 if (!url) {
-  url = `http://localhost:3333/`
+  url = `http://localhost:3333/`;
 }
 
-console.log(chalk.green(boxen("starting", { padding: 1, margin: 2})));
-console.log("\n")
+console.log(chalk.green(boxen("starting", { padding: 1, margin: 2 })));
 
 const tasks = new Listr([
   {
-    title: chalk.red.italic('working...'),
+    title: chalk.white.italic("working..."),
     task: () => {
       return new Observable(observer => {
-        takeScreenshot(url, observer).catch(err => console.log(chalk.red(err)));
+        takeScreenshot(url, observer).catch(err => {
+          observer.error(err);
+        });
       });
     }
   }
 ]);
 
-tasks.run().catch(err => {
-  console.error(err);
-});
+tasks
+  .run()
+  .catch(process.exit)
+  .then(() =>
+    console.log(chalk.green(boxen("  done  ", { padding: 1, margin: 2 })))
+  );
