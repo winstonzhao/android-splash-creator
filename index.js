@@ -33,7 +33,7 @@ const tasks = new Listr([
     title: chalk.red.italic('working...'),
     task: () => {
       return new Observable(observer => {
-        takeScreenshot(url, observer);
+        takeScreenshot(url, observer).catch(err => console.log(chalk.red(err)));
       });
     }
   }
